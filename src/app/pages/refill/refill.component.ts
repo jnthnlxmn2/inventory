@@ -16,6 +16,7 @@ export class RefillComponent implements OnInit {
   items: any = [];
   categories: any = [];
   quantity: any = 0;
+  price: any = 0;
   manufucturers: any = [];
   item: any = {};
   constructor(public categoryservice: CategoryService, public manufacturerservice: ManufacturerService,
@@ -51,7 +52,11 @@ export class RefillComponent implements OnInit {
   }
 
   proceed() {
-    let params = this.quantity
+    let params = {
+      quantity: this.quantity,
+      price: this.price
+    }
+
     this.itemservice.refill(this.item.id, params).then(response => {
       let data: any = response;
       if (data.data) {
@@ -82,6 +87,7 @@ export class RefillComponent implements OnInit {
     }, (reason) => {
     });
     this.quantity = 0;
+    this.price = 0;
   }
 
 }

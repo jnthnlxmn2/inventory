@@ -1,0 +1,42 @@
+<div class="container">
+    <div class="row add-category">
+      <div class="col-md-12">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">TAX</span>
+          </div>
+          <input type="text" class="form-control" placeholder="" aria-label="" [(ngModel)]="tax" aria-describedby="basic-addon1">
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="btn-group" role="group" aria-label="Basic example">
+          <div class="btn-group " role="group " aria-label="Basic example ">
+            <button type="button " *ngIf="!update " (click)="addTax() " class="btn btn-success ">Add</button>
+            <button type="button " *ngIf="!update " (click)="clear() " class="btn btn-warning ">Clear</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <table *ngIf="taxes.length>0" class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Tax</th>
+          <th scope="col">Created at</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let tax of taxes | paginate: { itemsPerPage: 10, currentPage: p }">
+          <td>
+            {{tax.tax}}
+          </td>
+          <td>
+            {{tax.created_at}}
+          </td>
+          <td>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+  </div>

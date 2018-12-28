@@ -220,6 +220,7 @@ export class ItemsComponent implements OnInit {
     this.objectItem.id = item.id;
     this.objectItem.manufacturer_id = item.manufacturer_id;
     this.objectItem.price = item.price;
+    this.objectItem.sale_price = item.sale_price;
     this.objectItem.total_stock = item.total_stock;
     this.selectSubCategory(item.category_id);
     this.update = true;

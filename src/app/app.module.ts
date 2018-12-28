@@ -33,6 +33,8 @@ import { PurchaseComponent } from './pages/purchase/purchase.component';
 import { PurchaseListComponent } from './pages/purchase-list/purchase-list.component';
 import { LogsComponent } from './pages/logs/logs.component';
 import { RefillComponent } from './pages/refill/refill.component';
+import { DiscountComponent } from './pages/discount/discount.component';
+import { TaxComponent } from './pages/tax/tax.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +59,9 @@ import { RefillComponent } from './pages/refill/refill.component';
     PurchaseComponent,
     PurchaseListComponent,
     LogsComponent,
-    RefillComponent
+    RefillComponent,
+    DiscountComponent,
+    TaxComponent
 
   ],
   imports: [

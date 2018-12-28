@@ -19,6 +19,8 @@ import { PurchaseComponent } from './pages/purchase/purchase.component';
 import { PurchaseListComponent } from './pages/purchase-list/purchase-list.component';
 import { LogsComponent } from './pages/logs/logs.component';
 import { RefillComponent } from './pages/refill/refill.component';
+import { DiscountComponent } from './pages/discount/discount.component';
+import { TaxComponent } from './pages/tax/tax.component';
 
 
 const routes: Routes = [
@@ -39,6 +41,8 @@ const routes: Routes = [
   { path: 'purchase-list', component: PurchaseListComponent, canActivate: [AuthGuard] },
   { path: 'logs', component: LogsComponent, canActivate: [AuthGuard] },
   { path: 'refill', component: RefillComponent, canActivate: [AuthGuard] },
+  { path: 'discount', component: DiscountComponent, canActivate: [AuthGuard] },
+  { path: 'tax', component: TaxComponent, canActivate: [AuthGuard] },
 
 ];
 

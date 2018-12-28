@@ -33,7 +33,7 @@
           {{item.price}}
         </td>
         <td>
-          {{item.total_stock}}
+          {{item.total_item_stock_quantity}}
         </td>
         <td>
           <button type="button" (click)="open(content, item)" class="btn btn-info">Refill</button>
@@ -47,7 +47,7 @@
 
 <ng-template #content let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Quantity</h4>
+    <h4 class="modal-title" id="modal-basic-title">Quantity & Price</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -56,6 +56,9 @@
     <form>
       <div class="form-group">
         <input type="number" [(ngModel)]="quantity" [ngModelOptions]="{standalone: true}" value="0" min="1" step="1" />
+      </div>
+      <div class="form-group">
+        <input type="number" [(ngModel)]="price" [ngModelOptions]="{standalone: true}" value="0" min="1" step="1" />
       </div>
     </form>
   </div>

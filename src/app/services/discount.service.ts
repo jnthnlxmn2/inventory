@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
-import { GlobalService } from './global.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { LocalStorageService } from 'ngx-webstorage';
+import { GlobalService } from './global.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ItemService {
+export class DiscountService {
   api: any = '';
   constructor(public http: HttpClient, public storage: LocalStorageService, public globalservice: GlobalService) {
     this.api = globalservice.getAPI();
   }
 
-  addItem(params) {
+  addDiscount(params) {
     let token = this.storage.retrieve('token');
     const httpOptions = {
       headers: new HttpHeaders({
@@ -23,7 +23,7 @@ export class ItemService {
 
     return new Promise(resolve => {
       let api = this.globalservice.getAPI();
-      this.http.post(api + "/api/admin/items", params, httpOptions)
+      this.http.post(api + "/api/admin/discount", params, httpOptions)
         .subscribe(data => {
           resolve(data);
         }, err => {
@@ -32,7 +32,29 @@ export class ItemService {
     });
   }
 
-  deleteItem(id) {
+  getDiscount() {
+    let token = this.storage.retrieve('token');
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token
+      })
+    };
+    return new Promise(resolve => {
+      this.http.get(this.api + "/api/admin/discount/", httpOptions)
+        .subscribe(response => {
+          let data: any = response;
+          if (data.data) {
+            resolve(data.data);
+          } else {
+            resolve(response);
+          }
+        }, err => {
+          resolve(err);
+        });
+    });
+  }
+  deleteDiscount(id) {
     let token = this.storage.retrieve('token');
     const httpOptions = {
       headers: new HttpHeaders({
@@ -43,7 +65,7 @@ export class ItemService {
 
     return new Promise(resolve => {
       let api = this.globalservice.getAPI();
-      this.http.delete(api + "/api/admin/items/" + id, httpOptions)
+      this.http.delete(api + "/api/admin/discount/" + id, httpOptions)
         .subscribe(data => {
           resolve(data);
         }, err => {
@@ -51,29 +73,7 @@ export class ItemService {
         });
     });
   }
-
-
-  updateItem(id, params) {
-    let token = this.storage.retrieve('token');
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Authorization': 'Bearer ' + token,
-        'Content-Type': 'application/json'
-      })
-    };
-
-    return new Promise(resolve => {
-      let api = this.globalservice.getAPI();
-      this.http.put(api + "/api/admin/items/" + id, params, httpOptions)
-        .subscribe(data => {
-          resolve(data);
-        }, err => {
-          resolve(err);
-        });
-    });
-  }
-
-  getItems() {
+  updateDiscount(id, params) {
     let token = this.storage.retrieve('token');
     const httpOptions = {
       headers: new HttpHeaders({
@@ -83,7 +83,7 @@ export class ItemService {
     };
     return new Promise(resolve => {
       let api = this.globalservice.getAPI();
-      this.http.get(api + "/api/admin/items", httpOptions)
+      this.http.put(api + "/api/admin/discount/" + id, params, httpOptions)
         .subscribe(data => {
           resolve(data);
         }, err => {
@@ -91,46 +91,4 @@ export class ItemService {
         });
     });
   }
-
-  getLogs() {
-    let token = this.storage.retrieve('token');
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Authorization': 'Bearer ' + token,
-        'Content-Type': 'application/json'
-      })
-    };
-    return new Promise(resolve => {
-      let api = this.globalservice.getAPI();
-      this.http.get(api + "/api/admin/logs", httpOptions)
-        .subscribe(data => {
-          resolve(data);
-        }, err => {
-          resolve(err);
-        });
-    });
-  }
-
-  refill(id, params) {
-    params.item_id = id;
-    let token = this.storage.retrieve('token');
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Authorization': 'Bearer ' + token,
-        'Content-Type': 'application/json'
-      })
-    };
-
-    return new Promise(resolve => {
-      let api = this.globalservice.getAPI();
-      this.http.post(api + "/api/admin/item_quantity", params, httpOptions)
-        .subscribe(data => {
-          resolve(data);
-        }, err => {
-          resolve(err);
-        });
-    });
-  }
-
 }
-

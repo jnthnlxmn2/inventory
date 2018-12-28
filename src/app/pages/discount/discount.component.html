@@ -1,0 +1,75 @@
+<div class="container">
+  <div class="row add-category">
+    <div class="col-md-12">
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">CODE</span>
+        </div>
+        <input type="text" class="form-control" placeholder="" aria-label="" [(ngModel)]="code" aria-describedby="basic-addon1">
+      </div>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">TYPE</span>
+        </div>
+        <select class="custom-select" required [(ngModel)]="type" id="inputGroupSelect01">
+          <option value="exact">EXACT</option>
+          <option value="percentage">PERCENTAGE</option>
+        </select>
+      </div>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">VALUE</span>
+        </div>
+        <input type="number" class="form-control" placeholder="" aria-label="" [(ngModel)]="value" aria-describedby="basic-addon1">
+      </div>
+
+
+    </div>
+    <div class="col-md-12">
+      <div class="btn-group" role="group" aria-label="Basic example">
+        <div class="btn-group " role="group " aria-label="Basic example ">
+          <button type="button " *ngIf="update " (click)="updateFile() " class="btn btn-success ">Update</button>
+          <button type="button " *ngIf="update " (click)="cancel() " class="btn btn-warning ">Cancel</button>
+          <button type="button " *ngIf="!update " (click)="addDiscount() " class="btn btn-success ">Add</button>
+          <button type="button " *ngIf="!update " (click)="clear() " class="btn btn-warning ">Clear</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <table *ngIf="discounts.length>0" class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Code</th>
+        <th scope="col">Type</th>
+        <th scope="col">Status</th>
+        <th scope="col">Value</th>
+        <th scope="col">Date Used</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let discount of discounts | paginate: { itemsPerPage: 10, currentPage: p }">
+        <td>
+          {{discount.code}}
+        </td>
+        <td>
+          {{discount.type}}
+        </td>
+        <td>
+          {{discount.status}}
+        </td>
+        <td>
+          {{discount.value}}
+        </td>
+        <td>
+          {{discount.date_used}}
+        </td>
+        <td>
+          <button *ngIf="!discount.date_used" type="button" (click)="toUpdate(discount)" class="btn btn-info">Edit</button>
+          <button type="button" (click)="deleteFile(discount.id)" class="btn btn-danger">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <pagination-controls (pageChange)="p = $event"></pagination-controls>
+</div>
